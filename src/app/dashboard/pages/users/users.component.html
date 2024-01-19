@@ -1,0 +1,28 @@
+<div class="flex flex-col h-screen">
+  <app-search-bar class="mb-4" #searchBar></app-search-bar>
+
+  <div class="flex gap-7">
+    <app-pagination-button
+      [disabled]="usersService.actualPage() <= 0"
+      name="PREV"
+      (click)="usersService.getUsersPreviousPage()"
+
+    />
+    <app-pagination-button
+      [disabled]="usersService.actualPage() == usersService.dataLength() - 1"
+      name="NEXT"
+      (click)="usersService.getUsersForPage()"
+    >
+      {{ usersService.dataLength() == 0 && "FINISH" }}
+    </app-pagination-button>
+  </div>
+
+  <div
+    class="flex items-center justify-center h-screen"
+    *ngIf="usersService.searchLength() === 0"
+  >
+    <h1 class="text-3xl text-gray-500 font-bold">No users to show</h1>
+  </div>
+
+  <app-card-list-users class="flex-1" [users]="users"> </app-card-list-users>
+</div>
